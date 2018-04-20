@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "yqc.cn.androiddemo"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            buildConfigField "String", "HOST_URL", hostUrl_test
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "String", "app_name", hostUrl_test
+        }
+        debug{
+//            minifyEnabled false
+//            buildConfigField "String", "HOST_URL", hostUrl_test
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            resValue "String", "app_name", hostUrl_test
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+def createDir = {
+    path ->
+        File dir = new File(path);
+        if(!dir.exists()){
+            dir.mkdirs()
+        }
+}
+task makeJavaDir(){
+    def paths = ['src/main/ttt']
+    doFirst{
+        println "hello2+++++"
+    }
+}
+
+
+
+
+task hello {
+
+    //创建一个 Action , 添加到 Action 列表的头部
+    doFirst(new Action<Task>() {
+        @Override
+        void execute(Task task) {
+            println "action1++++++++++"
+        }
+    })
+
+    //创建一个 Action , 添加到 Action 列表的头部
+    doFirst {
+        println "action2++++++++++"
+    }
+
+}
+
+//创建gradle的另外一种
+tasks.create("hell02"){
+    doFirst{
+        println "vfvfvfvfv"
+    }
+}
+
+class MyTask extends DefaultTask{
+
+
+}
